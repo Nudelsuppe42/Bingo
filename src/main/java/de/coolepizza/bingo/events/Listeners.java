@@ -1,17 +1,13 @@
 package de.coolepizza.bingo.events;
 
-import com.google.gson.internal.$Gson$Preconditions;
+
 import de.coolepizza.bingo.Bingo;
 import de.coolepizza.bingo.manager.BingoManager;
 import de.coolepizza.bingo.manager.BingoSettings;
 import de.coolepizza.bingo.team.Team;
-import de.coolepizza.bingo.team.TeamManager;
 import de.coolepizza.bingo.utils.ItemBuilder;
 import de.coolepizza.bingo.utils.ScoreboardUtils;
-import de.coolepizza.bingo.utils.TablistManager;
-import de.coolepizza.bingo.utils.UpdateChecker;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.builder.Diff;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,6 +19,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
@@ -79,14 +76,23 @@ public class Listeners implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player) {
+        if (Bingo.getTimer().isPaused()) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
     public void onChat(AsyncPlayerChatEvent e) {
-        e.setFormat("§a" + e.getPlayer().getName() + "§7» " + e.getMessage());
+        if(Bingo.getTimer().isPaused()) {
+            e.setFormat("§a" + e.getPlayer().getName() + "§7» " + e.getMessage());
+            e.setCancelled(false);
+        }else{
+            Team team = Bingo.getBingoManager().getTeamManager().getTeamFromPlayer(e.getPlayer());
+            Bingo.getBingoManager().getTeamManager().getPlayersInTeam(team).forEach(player -> {
+                Bukkit.getPlayer(player).sendMessage("§9Teamchat§7» §a" +  Bukkit.getPlayer(player).getName() + "§7:" + e.getMessage());
+            });
+            e.setCancelled(true);
+        }
     }
 
     @EventHandler
@@ -225,6 +231,16 @@ public class Listeners implements Listener {
             }
         } else if (e.getView().getTitle().equals("§9Bingo Items")) {
             e.setCancelled(true);
+        } else if (e.getView().getTitle().equals(ChatColor.BLUE+"Team Backpack")) {
+            e.setCancelled(false);
+        }
+    }
+
+    @EventHandler
+    public void onInventory(InventoryCloseEvent e) {
+        if(e.getView().getTitle().equals(ChatColor.BLUE+"Team Backpack")) {
+            Team team = Bingo.getBingoManager().getTeamManager().getTeamFromPlayer((Player) e.getPlayer());
+            team.updateBackpack(e.getInventory().getContents());
         }
     }
 

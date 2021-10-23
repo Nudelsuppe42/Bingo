@@ -1,19 +1,14 @@
 package de.coolepizza.bingo;
 
-import de.coolepizza.bingo.commands.BingoCommand;
-import de.coolepizza.bingo.commands.ResetCommand;
-import de.coolepizza.bingo.commands.TeamChatCommand;
-import de.coolepizza.bingo.commands.TopCommand;
+import de.coolepizza.bingo.commands.*;
 import de.coolepizza.bingo.events.Listeners;
 import de.coolepizza.bingo.manager.BingoManager;
 import de.coolepizza.bingo.utils.MetricsLite;
 import de.coolepizza.bingo.utils.ScoreboardUtils;
 import de.coolepizza.bingo.utils.Timer;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
-import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.spigotmc.Metrics;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -79,13 +74,15 @@ public final class Bingo extends JavaPlugin {
         getCommand("reset").setExecutor(new ResetCommand());
         getCommand("bingo").setExecutor(new BingoCommand());
         getCommand("top").setExecutor(new TopCommand());
-        getCommand("teamchat").setExecutor(new TeamChatCommand());
+        getCommand("globalchat").setExecutor(new GlobalChatCommand());
+        getCommand("backpack").setExecutor(new BackpackCommand());
+        getCommand("start").setExecutor(new StartCommand());
 
         ScoreboardUtils.insert(15 , "§c");
-        ScoreboardUtils.insert(14 , "§9Deine Platzierung: §7N/A");
-        ScoreboardUtils.insert(13 , "§9Noch §7N/A §9Items");
+        ScoreboardUtils.insert(14 , "§9Starte eine Runde mit /start!");
+        ScoreboardUtils.insert(13 , "§9");
         ScoreboardUtils.insert(12 , "§9");
-        ScoreboardUtils.insert(11 , "§9Items:");
+        ScoreboardUtils.insert(11 , "§9");
         ScoreboardUtils.insert(10 , "§a");
         ScoreboardUtils.insert(9 , "§a");
         ScoreboardUtils.insert(8 , "§a");
@@ -93,9 +90,9 @@ public final class Bingo extends JavaPlugin {
         ScoreboardUtils.insert(6 , "§a");
         ScoreboardUtils.insert(5 , "§a");
         ScoreboardUtils.insert(4 , "§b");
-        ScoreboardUtils.insert(3 , "§9Dein Team: §7Kein Team");
+        ScoreboardUtils.insert(3 , "§9");
         ScoreboardUtils.insert(2 , "§a");
-        ScoreboardUtils.insert(1 , "§9Bingo by CoolePizza");
+        ScoreboardUtils.insert(1 , "§9BTE Germany Bingo");
 
         Bukkit.getWorlds().forEach(world -> {
             world.setGameRule(GameRule.SPAWN_RADIUS , 0);

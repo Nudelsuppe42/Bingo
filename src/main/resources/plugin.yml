@@ -6,7 +6,11 @@ load: STARTUP
 commands:
   bingo:
   top:
-  teamchat:
-    aliases: [tc]
+  globalchat:
+    aliases: [gc]
   reset:
+    permission: bingo.admin
+  backpack:
+    aliases: bp
+  start:
     permission: bingo.admin

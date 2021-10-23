@@ -5,7 +5,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.builder.Diff;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 

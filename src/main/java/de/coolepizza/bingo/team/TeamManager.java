@@ -3,15 +3,10 @@ package de.coolepizza.bingo.team;
 import de.coolepizza.bingo.Bingo;
 import de.coolepizza.bingo.utils.ItemBuilder;
 import de.coolepizza.bingo.utils.ScoreboardUtils;
-import de.coolepizza.bingo.utils.TablistManager;
 import org.bukkit.Bukkit;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 
-import javax.swing.text.Style;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,7 +33,6 @@ public class TeamManager {
         }else {
             ScoreboardUtils.setScore(3 , "§9Dein Team: §7Team " + team.getTeamid()  , player.getScoreboard());
         }
-        TablistManager.setTeam(player , team);
         updateInventory();
     }
 

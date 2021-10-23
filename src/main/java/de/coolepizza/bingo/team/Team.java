@@ -1,6 +1,11 @@
 package de.coolepizza.bingo.team;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 
 public enum Team {
@@ -16,9 +21,11 @@ public enum Team {
 
     int teamid;
     Material mat;
+    Inventory backpack;
     Team(Material selectionitems , int teamid){
 
         this.teamid = teamid;
+        backpack = Bukkit.createInventory(null, InventoryType.PLAYER, ChatColor.BLUE+"Team Backpack");
         mat = selectionitems;
     }
 
@@ -35,5 +42,12 @@ public enum Team {
 
     public int getTeamid() {
         return teamid;
+    }
+
+    public Inventory getBackpack() {
+        return backpack;
+    }
+    public void updateBackpack(ItemStack[] contents) {
+        backpack.setContents(contents);
     }
 }

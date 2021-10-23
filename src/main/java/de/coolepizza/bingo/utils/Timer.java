@@ -12,7 +12,7 @@ public class Timer {
     public boolean paused;
     public String information;
     public Timer(){
-        information = "§7Bingo §a" + Bingo.getInstance().getDescription().getVersion() + " §7by CoolePizza";
+        information = "§7Bingo";
         time = 0;
         paused = true;
         BukkitRunnable runnable = new BukkitRunnable() {
@@ -35,6 +35,10 @@ public class Timer {
 
     public boolean isPaused() {
         return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 
     public void setInformation(String information) {

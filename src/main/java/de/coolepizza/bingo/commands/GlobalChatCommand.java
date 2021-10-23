@@ -4,8 +4,6 @@ import de.coolepizza.bingo.Bingo;
 import de.coolepizza.bingo.manager.BingoManager;
 import de.coolepizza.bingo.team.Team;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -13,7 +11,7 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class TeamChatCommand implements CommandExecutor {
+public class GlobalChatCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
@@ -32,13 +30,11 @@ public class TeamChatCommand implements CommandExecutor {
                 for (String string : strings) {
                     message.append(string).append(" ");
                 }
-
                 for (UUID uuid : Bingo.getBingoManager().getTeamManager().getPlayersInTeam(team)) {
                     if (Bukkit.getPlayer(uuid) != null){
-                        Bukkit.getPlayer(uuid).sendMessage("§9Teamchat§7» §a" + player.getName() + "§7:" + message);
+                        Bukkit.getPlayer(uuid).sendMessage("§Global§7» §a" + player.getName() + "§7:" + message);
                     }
                 }
-
             }else {
                 commandSender.sendMessage("§cDu bist in keinem Team!");
             }

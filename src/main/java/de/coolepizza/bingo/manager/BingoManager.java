@@ -51,7 +51,6 @@ public class BingoManager {
         };
         r.runTaskLater(Bingo.getInstance() , 20);
     }
-
     public TeamManager getTeamManager() {
         return teamManager;
     }
@@ -70,6 +69,7 @@ public class BingoManager {
             player.sendTitle("§aWähle dein Team aus!" , "§aKlicke auf das Bett!");
             player.playSound(player.getLocation() , Sound.ENTITY_PLAYER_LEVELUP , 1 ,1);
             player.getInventory().clear();
+
             player.getInventory().addItem(new ItemBuilder(Material.WHITE_BED).setDisplayname("§9Teamauswahl").build());
             if (player.hasPermission("orav.admin")){
                 player.getInventory().setItem(8 , new ItemBuilder(Material.LIME_DYE).setDisplayname("§aRunde starten").build());
@@ -89,7 +89,8 @@ public class BingoManager {
         getBedrock().getBlocks().forEach(block -> {
             block.setType(Material.AIR);
         });
-        Bingo.getTimer().paused = false;
+        Bingo.getTimer().setPaused(false);
+        System.out.println(Bingo.getTimer().isPaused());
         for (UUID uuid : getTeamManager().getPlayersInTeam(Team.SPECTATOR)) {
             if (Bukkit.getPlayer(uuid) != null){
                 Bukkit.getPlayer(uuid).setGameMode(GameMode.SPECTATOR);
@@ -105,7 +106,8 @@ public class BingoManager {
             player.sendMessage("§lZeit benötigt §8- §7" + Utils.shortInteger(Bingo.getTimer().time));
             player.sendMessage("§7-------------------------------------");
         });
-        Bingo.getTimer().paused = true;
+        Bingo.getTimer().setPaused(true);
+        System.out.println(Bingo.getTimer().isPaused());
         Bingo.getTimer().information = "§9Team " + team.getTeamid() + " hat Bingo gewonnen!";
     }
 
