@@ -32,9 +32,14 @@ public class Listeners implements Listener {
         e.setJoinMessage("§a» §7" + e.getPlayer().getName() + "");
         e.getPlayer().setPlayerListHeader("§lBINGO");
         e.getPlayer().sendMessage("§aDieser Server nutzt " + Bingo.getInstance().getDescription().getName() + " v" + Bingo.getInstance().getDescription().getVersion() + " by CoolePizza!");
-        if (Bingo.getBingoManager().bingoState == BingoManager.BingoState.SETTINGS && e.getPlayer().hasPermission("bingo.admin")) {
-            e.getPlayer().getInventory().clear();
-            e.getPlayer().getInventory().addItem(new ItemBuilder(Material.NETHER_STAR).setDisplayname("§9Spiel Einstellungen").build());
+        if (Bingo.getBingoManager().bingoState == BingoManager.BingoState.SETTINGS) {
+            if(e.getPlayer().hasPermission("bingo.admin")) {
+                e.getPlayer().getInventory().clear();
+                e.getPlayer().getInventory().addItem(new ItemBuilder(Material.NETHER_STAR).setDisplayname("§9Spiel Einstellungen").build());
+            }
+            World w = Bukkit.getWorld("world");
+            int y = w.getHighestBlockYAt((int) w.getSpawnLocation().getX(), (int) w.getSpawnLocation().getZ());
+            e.getPlayer().teleport(new Location(w, (int) w.getSpawnLocation().getX() + 5, y - 1, (int) w.getSpawnLocation().getZ() + 5));
         } else if (Bingo.getBingoManager().bingoState == BingoManager.BingoState.TEAM_JOIN) {
             e.getPlayer().getInventory().clear();
             e.getPlayer().getInventory().addItem(new ItemBuilder(Material.WHITE_BED).setDisplayname("§9Teamauswahl").build());

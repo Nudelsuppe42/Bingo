@@ -92,7 +92,7 @@ public final class Bingo extends JavaPlugin {
         ScoreboardUtils.insert(4 , "§b");
         ScoreboardUtils.insert(3 , "§9");
         ScoreboardUtils.insert(2 , "§a");
-        ScoreboardUtils.insert(1 , "§9BTE Germany Bingo");
+        ScoreboardUtils.insert(1 , "§9BTE Germany");
 
         Bukkit.getWorlds().forEach(world -> {
             world.setGameRule(GameRule.SPAWN_RADIUS , 0);

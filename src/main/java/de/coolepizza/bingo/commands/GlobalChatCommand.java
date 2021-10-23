@@ -15,14 +15,14 @@ public class GlobalChatCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
-        if (!(commandSender instanceof Player)){
+        if (!(commandSender instanceof Player)) {
             return false;
         }
         if (Bingo.getBingoManager().bingoState == BingoManager.BingoState.INGAME) {
             Player player = (Player) commandSender;
             Team team = Bingo.getBingoManager().getTeamManager().getTeamFromPlayer(((Player) commandSender));
-            if (team != Team.SPECTATOR){
-                if (strings.length == 0){
+            if (team != Team.SPECTATOR) {
+                if (strings.length == 0) {
                     commandSender.sendMessage("§cDu musst eine Nachricht eingeben!");
                     return false;
                 }
@@ -30,17 +30,15 @@ public class GlobalChatCommand implements CommandExecutor {
                 for (String string : strings) {
                     message.append(string).append(" ");
                 }
-                for (UUID uuid : Bingo.getBingoManager().getTeamManager().getPlayersInTeam(team)) {
-                    if (Bukkit.getPlayer(uuid) != null){
-                        Bukkit.getPlayer(uuid).sendMessage("§Global§7» §a" + player.getName() + "§7:" + message);
-                    }
+                for (Player uuid : Bukkit.getOnlinePlayers()) {
+
+                    uuid.sendMessage("§Global§7» §a" + player.getName() + "§7:" + message);
+
                 }
-            }else {
-                commandSender.sendMessage("§cDu bist in keinem Team!");
             }
-            } else {
-                commandSender.sendMessage("§cDieser Command ist nur während des Spiels freigeschaltet!");
-            }
-        return false;
+        } else {
+            commandSender.sendMessage("§cDieser Command ist nur während des Spiels freigeschaltet!");
+        }
+        return true;
     }
 }
