@@ -23,7 +23,7 @@ public class BackpackCommand implements CommandExecutor {
         if (!(commandSender instanceof Player)){
             return false;
         }
-        if (Bingo.getBingoManager().bingoState == BingoManager.BingoState.INGAME) {
+        if (Bingo.getBingoManager().bingoState == BingoManager.BingoState.INGAME && Bingo.getBingoManager().getBingosettings().isBackpack()) {
             Player player = (Player) commandSender;
             Team team = Bingo.getBingoManager().getTeamManager().getTeamFromPlayer(player);
 

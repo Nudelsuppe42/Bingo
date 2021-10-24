@@ -13,7 +13,7 @@ public class TeamTpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
         if (!(commandSender instanceof Player) || args.length ==0) return false;
-        if (Bingo.getBingoManager().bingoState == BingoManager.BingoState.INGAME) {
+        if (Bingo.getBingoManager().bingoState == BingoManager.BingoState.INGAME && Bingo.getBingoManager().getBingosettings().isTtp()) {
             Player to = Bukkit.getPlayer(args[0]);
             if(to == null) return true;
             if(!Bingo.getBingoManager().getTeamManager().getPlayersInTeam(Bingo.getBingoManager().getTeamManager().getTeamFromPlayer((Player) commandSender)).contains(to.getUniqueId())) return true;

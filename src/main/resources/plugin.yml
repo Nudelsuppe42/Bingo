@@ -14,3 +14,5 @@ commands:
     aliases: bp
   start:
     permission: bingo.admin
+  teamtp:
+    aliases: ttp

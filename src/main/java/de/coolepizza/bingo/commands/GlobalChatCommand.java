@@ -4,6 +4,7 @@ import de.coolepizza.bingo.Bingo;
 import de.coolepizza.bingo.manager.BingoManager;
 import de.coolepizza.bingo.team.Team;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

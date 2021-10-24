@@ -71,12 +71,11 @@ public class BingoManager {
             player.getInventory().clear();
 
             player.getInventory().addItem(new ItemBuilder(Material.WHITE_BED).setDisplayname("§9Teamauswahl").build());
-            if (player.hasPermission("orav.admin")){
+            if (player.hasPermission("bingo.admin")){
                 player.getInventory().setItem(8 , new ItemBuilder(Material.LIME_DYE).setDisplayname("§aRunde starten").build());
             }
         });
     }
-
     public void startIngameState(){
         bingoState = BingoState.INGAME;
         itemManager.start();

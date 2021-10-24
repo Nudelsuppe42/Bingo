@@ -27,11 +27,10 @@ public class Listeners implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
-        ScoreboardUtils.setCurrentScoreboard(e.getPlayer(), "§lBINGO");
+        ScoreboardUtils.setCurrentScoreboard(e.getPlayer(), "§lBTE GERMANY BINGO");
         Bingo.getBingoManager().getTeamManager().initPlayer(e.getPlayer());
         e.setJoinMessage("§a» §7" + e.getPlayer().getName() + "");
-        e.getPlayer().setPlayerListHeader("§lBINGO");
-        e.getPlayer().sendMessage("§aDieser Server nutzt " + Bingo.getInstance().getDescription().getName() + " v" + Bingo.getInstance().getDescription().getVersion() + " by CoolePizza!");
+        e.getPlayer().setPlayerListHeader("§lBTE GERMANY BINGO");
         if (Bingo.getBingoManager().bingoState == BingoManager.BingoState.SETTINGS) {
             if(e.getPlayer().hasPermission("bingo.admin")) {
                 e.getPlayer().getInventory().clear();
@@ -104,6 +103,8 @@ public class Listeners implements Listener {
     public void onDamage(InventoryClickEvent e) {
         if (Bingo.getTimer().isPaused()) {
             e.setCancelled(true);
+        }else if(!Bingo.getBingoManager().getBingosettings().isDamage()) {
+            e.setCancelled(true);
         }
     }
 
@@ -175,7 +176,6 @@ public class Listeners implements Listener {
         if (e.getView().getTitle() == "§9Bingo §7>> §9Einstellungen") {
             e.setCancelled(true);
             ItemStack itemStack = e.getCurrentItem();
-
             Player player = (Player) e.getWhoClicked();
 
             if (itemStack != null) {
@@ -187,6 +187,12 @@ public class Listeners implements Listener {
                 if (itemStack.getType() == Material.LIME_DYE) {
                     Bingo.getBingoManager().startTeamState();
                     return;
+                } else if (itemStack.getType() == Material.IRON_SWORD) {
+                    Bingo.getBingoManager().getBingosettings().switchDamage(player);
+                } else if (itemStack.getType() == Material.CHEST_MINECART) {
+                    Bingo.getBingoManager().getBingosettings().switchBackpack(player);
+                } else if (itemStack.getType() == Material.COMPASS) {
+                    Bingo.getBingoManager().getBingosettings().switchTtp(player);
                 }
 
                 if (local.equalsIgnoreCase("maxplayers+")) {

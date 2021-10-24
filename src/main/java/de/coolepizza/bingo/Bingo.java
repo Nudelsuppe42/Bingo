@@ -77,6 +77,7 @@ public final class Bingo extends JavaPlugin {
         getCommand("globalchat").setExecutor(new GlobalChatCommand());
         getCommand("backpack").setExecutor(new BackpackCommand());
         getCommand("start").setExecutor(new StartCommand());
+        getCommand("teamtp").setExecutor(new TeamTpCommand());
 
         ScoreboardUtils.insert(15 , "§c");
         ScoreboardUtils.insert(14 , "§9Starte eine Runde mit /start!");
